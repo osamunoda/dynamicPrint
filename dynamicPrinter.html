@@ -7,237 +7,301 @@
     <meta http-equiv='X-UA-Compatible' content='ie=edge'>
     <title>Dynamic Printer</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
+        * {
+            margin: 0;
+            padding: 0;
             -webkit-user-select: none;
             box-sizing: border-box;
         }
-        :root{
-            background:gray;
-            --page-width:210;
-            --page-height:297;
-            --column-count:2;
-            --row-count:5;
-            --column-gap:0;
-            --row-gap:0;
-            --offset-y:21.2;
-            --offset-x:18.6;
-            --block-width:86.4;
-            --block-height:50.8;
+
+        :root {
+            background: gray;
+            --page-width: 210;
+            --page-height: 297;
+            --column-count: 2;
+            --row-count: 5;
+            --column-gap: 0;
+            --row-gap: 0;
+            --offset-y: 21.2;
+            --offset-x: 18.6;
+            --block-width: 86.4;
+            --block-height: 50.8;
         }
-        body{
-            position:relative;
-            background:white;
-            min-height:100vh;
-            width:calc(var(--page-width) * 1mm);
-            margin:0 auto;
+
+        body {
+            position: relative;
+            background: white;
+            min-height: 100vh;
+            width: calc(var(--page-width) * 1mm);
+            margin: 0 auto;
         }
-        #header{
-            display:flex;
+
+        #header {
+            display: flex;
             justify-content: space-around;
-            background:#333;
-            color:#eee;
+            align-items: center;
+            background: #333;
+            color: #eee;
         }
-        #header h1{
-            font-size:36px;
+
+        #header h1 {
+            font-size: 36px;
             padding: 10px;
-            display:flex;
+            display: flex;
             align-items: center;
 
         }
-        #header>input{
-            font-size:24px;
-            margin:10px;
-            display:none;
+
+        #header > input {
+            font-size: 24px;
+            margin: 10px;
+            display: none;
         }
-        #header button{
-            font-size:18px;
-            padding:5px;
-            display:none;
+
+        #header button {
+            font-size: 18px;
+            padding: 5px;
+            display: none;
         }
-        #header ul{
-            list-style:none;
-            padding:10px;
-            margin:10px 0 0;
+
+        #header ul {
+            list-style: none;
+            padding: 10px;
+            margin: 10px 0 0;
         }
+
         #header ul li {
-            border:1px solid;
-            text-align:center;
-            margin:10px;
-            border-radius:8px;
-            padding:3px;
+            border: 1px solid;
+            text-align: center;
+            margin: 10px;
+            border-radius: 8px;
+            padding: 3px;
         }
-        .page{
-            position:relative;
+
+        .page {
+            position: relative;
         }
-        .grid{
-            padding-top:calc(var(--offset-y) * 1mm);
-            padding-left:calc(var(--offset-x) * 1mm);
-            padding-right:calc(var(--offset-x) * 1mm);
-            display:grid;
-            grid-template-columns:repeat(var(--column-count), calc(var(--block-width) * 1mm));
+
+        .grid {
+            padding-top: calc(var(--offset-y) * 1mm);
+            padding-left: calc(var(--offset-x) * 1mm);
+            padding-right: calc(var(--offset-x) * 1mm);
+            display: grid;
+            grid-template-columns: repeat(var(--column-count), calc(var(--block-width) * 1mm));
             grid-template-rows: repeat(var(--row-count), calc(var(--block-height) * 1mm));
         }
-        .block{
-            position:relative;
+
+        .block {
+            position: relative;
         }
-        .jpPostcard{
-            width:100mm;
-            height:148mm;
-            background-image:url('hagaki.png');
-            background-size:100% 100%;
+
+        .jpPostcard {
+            width: 100mm;
+            height: 148mm;
+            background-image: url('hagaki.png');
+            background-size: 100% 100%;
         }
-        .label{
-            width:calc(var(--block-width) * 1mm);
-            height:calc(var(--block-height) * 1mm);
-            background:none;
-            border:1px solid;
+
+        .label {
+            width: calc(var(--block-width) * 1mm);
+            height: calc(var(--block-height) * 1mm);
+            background: none;
+            border: 1px solid;
         }
-        .block>div{
-            position:absolute;
-            display:flex;
-            top:0;
-            left:0;
+
+        .block > div {
+            position: absolute;
+            display: flex;
+            top: 0;
+            left: 0;
         }
-        .block>div:focus::after{
-            content:'';
-            position:absolute;
-            width:10px;
-            height:10px;
-            right:0;
-            top:0;
-            background:rgba(0,0,200,0.5)
+
+        .block > div:focus::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            right: 0;
+            top: 0;
+            background: rgba(0, 0, 200, 0.5)
         }
-        .block>div:focus::before{
-            content:'';
-            position:absolute;
-            width:10px;
-            height:10px;
-            left:0;
-            top:0;
-            background:rgba(200,0,0,0.5)
+
+        .block > div:focus::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            left: 0;
+            top: 0;
+            background: rgba(200, 0, 0, 0.5)
         }
-        .block>div:focus[data-extend='space']{
-            outline:4px solid pink;
+
+        .block > div:focus[data-extend='space'] {
+            outline: 4px solid pink;
         }
-        .empty{
-            display:none;
+
+        .empty {
+            display: none;
         }
-        #printType>ul{
-            display:flex;
-            color:white;
+        #printType{
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        #printType>ul>li{
-            flex:1;
-            padding:10px;
+        #printType > ul {
+            display: flex;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            margin:0;
         }
-        #printType>ul>li:hover{
+
+        #printType > ul > li {
+            flex: 1;
+            padding: 10px;
+        }
+
+        #printType > ul > li:hover {
             box-shadow: 0 0 5px white;
         }
-        .name::after{
-            content:'　様'
+        #btnClear{
+            padding:10px;
+            border:1px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        #btnClear:hover{
+            box-shadow: 0 0 5px white;
+        }
+        #btnClear:active{
+            color:pink;
+            box-shadow: 0 0 5px pink;
+        }
+        .name::after {
+            content: ''
         }
 
         /***** Label setting *****/
-        #gridSetting{
-            display:none;
-            position:absolute;
-            top:200px;
-            left:calc(50vw - 250px);
-            width:500px;
-            border:5px solid;
-            box-shadow:1px 1px 20px rgba(200,0,0,0.5);
-            color:#555;
-            padding:10px;
-            overflow:hidden;
-            flex-direction:column;
-            border-radius:10px;
-            background:white;
-            z-index:10;
+        #gridSetting {
+            display: none;
+            position: absolute;
+            top: 200px;
+            left: calc(50vw - 250px);
+            width: 500px;
+            border: 5px solid;
+            box-shadow: 1px 1px 20px rgba(200, 0, 0, 0.5);
+            color: #555;
+            padding: 10px;
+            overflow: hidden;
+            flex-direction: column;
+            border-radius: 10px;
+            background: white;
+            z-index: 10;
         }
-        #gridSetting>div:first-child{
-            height:40px;
-            font:20px/40px sans-serif;
+
+        #gridSetting > div:first-child {
+            height: 40px;
+            font: 20px/40px sans-serif;
             font-weight: bold;
-            display:flex;
+            display: flex;
             justify-content: space-between;
         }
-        #settingPanel{
-            flex:1;
-            display:flex;
+
+        #settingPanel {
+            flex: 1;
+            display: flex;
         }
-        #leftPane{
-            width:200px;
-            padding:10px;
+
+        #leftPane {
+            width: 200px;
+            padding: 10px;
         }
-        #leftPane input{
-            text-align:right;
+
+        #leftPane input {
+            text-align: right;
         }
-        #settingPanel input{
-            width:70px;
-            font:14px sans-serif;
+
+        #settingPanel input {
+            width: 70px;
+            font: 14px sans-serif;
         }
-        #rightPane{
-            width:300px;
-            box-sizing:border-box;
-            height:400px;
-            border:1px solid;
-            display:grid;
-            grid-template-rows:repeat(var(--row-count),1fr);
-            grid-template-columns:repeat(var(--column-count), 1fr);
-            padding:20px 10px;
-            grid-column-gap:5px;
-            grid-row-gap:2px;
+
+        #rightPane {
+            width: 300px;
+            box-sizing: border-box;
+            height: 400px;
+            border: 1px solid;
+            display: grid;
+            grid-template-rows: repeat(var(--row-count), 1fr);
+            grid-template-columns: repeat(var(--column-count), 1fr);
+            padding: 20px 10px;
+            grid-column-gap: 5px;
+            grid-row-gap: 2px;
         }
-        #rightPane>div{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            border:1px solid;
-            overflow:hidden;
+
+        #rightPane > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid;
+            overflow: hidden;
         }
-        #rightPane>div:nth-of-type(2){
-            writing-mode:vertical-rl
+
+        #rightPane > div:nth-of-type(2) {
+            writing-mode: vertical-rl
         }
-        #rightPane>div>input{
-            margin:0;
-            text-align:center;
+
+        #rightPane > div > input {
+            margin: 0;
+            text-align: center;
         }
-        #leftPane>div{
-            display:flex;
+
+        #leftPane > div {
+            display: flex;
             flex-direction: column;
         }
+
         /*****************************/
 
-        @page{
-            size:A4
+        @page {
+            size: A4
         }
+
         @media print {
-            *{
-                margin:0;
-                padding:0;
+            * {
+                margin: 0;
+                padding: 0;
             }
-            .page{
+
+            .page {
                 page-break-after: always;
-                box-sizing:border-box;
+                box-sizing: border-box;
             }
-            .block>div{
-            /border:1px solid white;
+
+            .block > div {
+            / border: 1 px solid white;
             }
-            #header{
-                display:none;
+
+            #header {
+                display: none;
             }
-            .label{/border:1px solid white;}
-            body{
-                box-sizing:border-box;
-                width:calc(var(--page-width) * 1mm);
-                height:calc(var(--page-height) * 1mm);
+
+            .label {
+            / border: 1 px solid white;
             }
-            .page{
-                border:1px solid rgba(0,0,0,0);
-                width:calc(var(--page-width) * 1mm);
-                height:calc(calc(var(--page-height) * 1mm) - 2px);
+
+            body {
+                box-sizing: border-box;
+                width: calc(var(--page-width) * 1mm);
+                height: calc(var(--page-height) * 1mm);
+            }
+
+            .page {
+                border: 1px solid rgba(0, 0, 0, 0);
+                width: calc(var(--page-width) * 1mm);
+                height: calc(calc(var(--page-height) * 1mm) - 2px);
             }
         }
 
@@ -245,9 +309,20 @@
 </head>
 <body>
 <div id='header'>
-    <h1><svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path fill='#eee' d='M19 8H5c-1.66 0-3 1.34-3 3v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.66-1.34-3-3-3zm-4 11H9c-.55 0-1-.45-1-1v-4h8v4c0 .55-.45 1-1 1zm4-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2-9H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z'/></svg>
-        Dynamic Print</h1>
-    <div id='printType'><ul><li id='btnPostcard'>PostCard</li><li id='btnLabel'>Label</li></ul></div>
+    <h1>
+        <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'>
+            <path fill='#eee'
+                  d='M19 8H5c-1.66 0-3 1.34-3 3v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.66-1.34-3-3-3zm-4 11H9c-.55 0-1-.45-1-1v-4h8v4c0 .55-.45 1-1 1zm4-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2-9H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z'/>
+        </svg>
+        Dynamic Print
+    </h1>
+    <div id='printType'>
+        <ul>
+            <li id='btnPostcard'>PostCard</li>
+            <li id='btnLabel'>Label</li>
+        </ul>
+    </div>
+    <div id='btnClear'>Clear</div>
     <div id='gridSetting'>
         <div>
             <div>
@@ -308,63 +383,72 @@
     </div>
 </div>
 <script>
-    const PRESET = false;
-    (function(){
-        /** 
-         * 
+    const SAMPLE = false;
+    const EMBED = '__EMBED__';
+    (function () {
+        /**
+         *
          * DATA
-         * 
+         *
          * */
-        
+
         /* SAMPLE DATA */
         let data = [
-            {name: '野田 修',addr:'千葉県市川市市川1-2-3','zip1':'272',zip2:'0033'},
-            {name:'西原 順子', addr:'和歌山県南部町3-10','zip1':'334',zip2:'5432'},
-            {name:'東京 一郎', addr:'文京区本郷7-3-1',zip1:'102',zip2:'1123'},
-            {name:'明治 二郎',addr:'千代田区神田駿河台1-1',zip1:'123',zip2:'4567'},
-            {name:'早稲田 三郎',addr:'新宿区戸塚町1-104',zip1:'234',zip2:'5678'},
-            {name:'慶応 士郎',addr:'港区三田2-15-45',zip1:'345',zip2:'6789'},
-            {name:'法政 五郎',addr:'千代田区富士見2-13-1',zip1:'456',zip2:'7890'},
-            {name:'立教 六郎',addr:'豊島区西池袋3-34-1',zip1:'567',zip2:'8901'},
-            {name:'青学 菜々子',addr:'渋谷区渋谷4-4-25',zip1:'678',zip2:'9012'},
-            {name:'大東 八郎',addr:'板橋区高島平1-9-1',zip1:'789',zip2:'0123'},
-            {name:'山梨 久子',addr:'山梨県甲府市酒折2-4-5',zip1:'890',zip2:'1234'},
-            {name:'東海 徹',addr:'渋谷区富ヶ谷2-28-4',zip1:'901',zip2:'2345'},
-            {name:'順天堂 磯子',addr:'文京区本郷2-1-1',zip1:'012',zip2:'3456'},
-            {name:'大阪 花子',addr:'大阪府吹田市山田丘1-1',zip1:'111',zip2:'1112'},
-            {name:'名古屋 太郎',addr:'名古屋市千種区不老町1',zip1:'222',zip2:'3333'},
-            {name:'同志社 伊都子',addr:'京都市上京区今出川通烏丸東入玄武町601',zip1:'333',zip2:'4444'},
-            {name:'関学 すみれ',addr:'兵庫県西宮市上ケ原一番町1-155',zip1:'444',zip2:'5555'},
-            {name:'北海 大地',addr:'札幌市北区北8-5',zip1:'666',zip2:'7777'},
-            {name:'仙台 達夫',addr:'仙台市青葉区片平2-1-1',zip1:'888',zip2:'9999'},
-            {name:'福島 あいこ',addr:'福島市金谷川1',zip1:'999',zip2:'0101'},
-            {name:'千葉 一郎',addr:'千葉市稲毛区弥生町1-33',zip1:'001',zip2:'2323'}
+            {name: '野田 修', addr: '千葉県市川市市川1-2-3', 'zip1': '272', zip2: '0033'},
+            {name: '西原 順子', addr: '和歌山県南部町3-10', 'zip1': '334', zip2: '5432'},
+            {name: '東京 一郎', addr: '文京区本郷7-3-1', zip1: '102', zip2: '1123'},
+            {name: '明治 二郎', addr: '千代田区神田駿河台1-1', zip1: '123', zip2: '4567'},
+            {name: '早稲田 三郎', addr: '新宿区戸塚町1-104', zip1: '234', zip2: '5678'},
+            {name: '慶応 士郎', addr: '港区三田2-15-45', zip1: '345', zip2: '6789'},
+            {name: '法政 五郎', addr: '千代田区富士見2-13-1', zip1: '456', zip2: '7890'},
+            {name: '立教 六郎', addr: '豊島区西池袋3-34-1', zip1: '567', zip2: '8901'},
+            {name: '青学 菜々子', addr: '渋谷区渋谷4-4-25', zip1: '678', zip2: '9012'},
+            {name: '大東 八郎', addr: '板橋区高島平1-9-1', zip1: '789', zip2: '0123'},
+            {name: '山梨 久子', addr: '山梨県甲府市酒折2-4-5', zip1: '890', zip2: '1234'},
+            {name: '東海 徹', addr: '渋谷区富ヶ谷2-28-4', zip1: '901', zip2: '2345'},
+            {name: '順天堂 磯子', addr: '文京区本郷2-1-1', zip1: '012', zip2: '3456'},
+            {name: '大阪 花子', addr: '大阪府吹田市山田丘1-1', zip1: '111', zip2: '1112'},
+            {name: '名古屋 太郎', addr: '名古屋市千種区不老町1', zip1: '222', zip2: '3333'},
+            {name: '同志社 伊都子', addr: '京都市上京区今出川通烏丸東入玄武町601', zip1: '333', zip2: '4444'},
+            {name: '関学 すみれ', addr: '兵庫県西宮市上ケ原一番町1-155', zip1: '444', zip2: '5555'},
+            {name: '北海 大地', addr: '札幌市北区北8-5', zip1: '666', zip2: '7777'},
+            {name: '仙台 達夫', addr: '仙台市青葉区片平2-1-1', zip1: '888', zip2: '9999'},
+            {name: '福島 あいこ', addr: '福島市金谷川1', zip1: '999', zip2: '0101'},
+            {name: '千葉 一郎', addr: '千葉市稲毛区弥生町1-33', zip1: '001', zip2: '2323'}
         ];
-        if(!PRESET){
-            data=[];
+        if (!SAMPLE) {
+            if (EMBED === 'true') {
+                const dataEmbedded = `__CSV_WITH_LABELS__`;
+                if (dataEmbedded.split && dataEmbedded.split('_____')[0] && dataEmbedded.split('_____')[1]) {
+                    data = csvToObjectArr(dataEmbedded.split('_____')[0], dataEmbedded.split('_____')[1]);
+                }else{
+                    data = [];
+                }
+            } else {
+                data = [];
+            }
         }
-        
         /**
          *
          * CONTROLLER OBJECT
          *
          * */
-        
+
         const manager = {
-            body:{
+            body: {
                 targetElm: null, /* selected element */
                 down: false, /* mousedown flag */
-                corner:'', /* clicked(mousedown) corner */
+                corner: '', /* clicked(mousedown) corner */
                 resizable: false, /* resizeable flag */
-                startX:0 /* x-position of mousedown  */
+                startX: 0 /* x-position of mousedown  */
             },
-            selected:{
+            selected: {
                 bounding: null, /* original size of the selected element bounding */
-                wRate:1, /* rate to calculate the font-size */
+                wRate: 1, /* rate to calculate the font-size */
                 diffX: 0, /* amount of transformX */
                 diffY: 0, /* amount of transformY */
-                startX:0,/* x-position of mousedown - diffX */
-                startY:0, /* y-position of mousedown -diffY */
+                startX: 0,/* x-position of mousedown - diffX */
+                startY: 0, /* y-position of mousedown -diffY */
                 index: 0 /* block index */
             }
         };
@@ -374,31 +458,31 @@
          * VARIABLES
          *
          * */
-            
+
         let currentStyle = localStorage.getItem('current') || 'css';
         const btnPostcard = document.getElementById('btnPostcard');
         const btnLabel = document.getElementById('btnLabel');
+        const btnClear = document.getElementById('btnClear');
         const gridSetting = document.getElementById('gridSetting');
         const colCount = document.getElementById('colCount');
         const rowCount = document.getElementById('rowCount');
-        const offsetX=document.getElementById('offsetX');
+        const offsetX = document.getElementById('offsetX');
         const offsetY = document.getElementById('offsetY');
         const colGap = document.getElementById('colGap');
         const rowGap = document.getElementById('rowGap');
         const blockWidth = document.getElementById('blockWidth');
         const blockHeight = document.getElementById('blockHeight');
         const closeSetting = document.getElementById('closeSetting');
-        const rightPane = document.getElementById('rightPane');
-        const inputs=[colCount, rowCount, offsetX, offsetY, colGap, rowGap,blockWidth, blockHeight];/* input elements of labelOptionWindow */
-        const properties = ['--column-count', '--row-count','--offset-x','--offset-y','--column-gap','--row-gap','--block-width','--block-height'];/* CSS-variables */
+        const inputs = [colCount, rowCount, offsetX, offsetY, colGap, rowGap, blockWidth, blockHeight];/* input elements of labelOptionWindow */
+        const properties = ['--column-count', '--row-count', '--offset-x', '--offset-y', '--column-gap', '--row-gap', '--block-width', '--block-height'];/* CSS-variables */
 
         /**
-         * 
+         *
          * MAIN
-         * 
-        */
+         *
+         */
 
-        if(PRESET){
+        if (SAMPLE || EMBED==='true') {
             init(data);
         }
         /**
@@ -409,26 +493,21 @@
 
         /****************************  document.body  ***********************************/
         /* dragover */
-        document.body.addEventListener('dragover', e=>{
+        document.body.addEventListener('dragover', e => {
             e.preventDefault();
-            e.dataTransfer.dropEffect='copy';
+            e.dataTransfer.dropEffect = 'copy';
         });
-        /* drop */
+        /** drop *
+         *  requirement for dropped text
+         *  (csv text)_____(labelNameList)
+         *  _____: delimiter
+         *  labelNameList: labelNames for csv items
+         * */
         document.body.addEventListener('drop', e => {
-            if(PRESET) return;
+            if (SAMPLE || EMBED==='true') return;
             const data = e.dataTransfer.getData('text');
-            const dataArr=data.split('_____');
-            const arr=dataArr[0].split('\n');
-            const fields = dataArr[1].split(',');
-            const obj = arr.reduce((temp,line,index) => {
-                const dataArr=line.split(',');
-                const item = {};
-                fields.forEach((fieldName, index)=>{
-                    item[fieldName] = dataArr[index]
-                });
-                temp.push(item);
-                return temp
-            }, []);
+            const dataArr = data.split('_____');
+            const obj = csvToObjectArr(dataArr[0], dataArr[1]);
             /* initialize */
             init(obj);
         });
@@ -450,26 +529,30 @@
             /*saving original bounding size*/
             manager.selected.bounding = elm.getBoundingClientRect();
             /*Check whether corners of the selected is clicked*/
-            if (checkInCorner(elm, e, 'lt', 10)) {/*in case of left-top corner: change the mode of resizing*/
-                manager.body.corner='lt';
-                elm.dataset.extend = (elm.dataset.extend === 'size') ? 'space' : 'size';
+            if (document.activeElement === elm && checkInCorner(elm, e, 'lt', 10)) {/*in case of left-top corner: change the mode of resizing*/
+                manager.body.corner = 'lt';
+                const currentExtendMode = (elm.dataset.extend === 'size') ? 'space' : 'size';
+                elm.dataset.extend = currentExtendMode;
                 /* Get the all objects to change the mode */
-                const targets = Array.from(document.querySelectorAll('.'+elm.className));
-                targets.forEach(item=>{
+                const targets = Array.from(document.querySelectorAll('.' + elm.className));
+                console.log('#########=====', elm.className, targets.length);
+                targets.forEach(item => {
+                    item.dataset.extend = currentExtendMode;
+                    console.log(item.className);
                     /* toggle the extend mode and settings */
                     if (elm.dataset.extend === 'space') {
-                        item.style='';
+                        item.style = '';
                         item.style.display = 'flex';
                         item.innerHTML = '<span>' + item.innerText.split('').join('</span><span>') + '</span>';
                         item.style['justify-content'] = 'space-around';
-                    } else if(elm.dataset.extend === 'size'){
+                    } else if (elm.dataset.extend === 'size') {
                         item.style.display = 'block';
                         item.innerHTML = item.innerHTML.split(/<\/?span>/).join('');
                         item.style.width = 'auto';
                     }
                 });
-            } else if (checkInCorner(elm, e, 'rt', 10)) {/*in case of right-top corner: change the mode of resizing*/
-                manager.body.corner='rt';
+            } else if (document.activeElement === elm && checkInCorner(elm, e, 'rt', 10)) {/*in case of right-top corner: change the mode of resizing*/
+                manager.body.corner = 'rt';
             } else if (checkInCorner(elm, e, 'rb', 10)) {/*in case of left-bottom corner: change the mode of resizing*/
                 manager.body.resizable = 'true';
                 const ratio = getBasicRatio(elm);
@@ -487,7 +570,7 @@
             }
             manager.selected.startX = e.pageX - (manager.selected.diffX || 0);
             manager.selected.startY = e.pageY - (manager.selected.diffY || 0);
-            manager.body.startX=e.pageX;
+            manager.body.startX = e.pageX;
             manager.body.index = elm.dataset.index;
 
         });
@@ -513,12 +596,12 @@
         });
         /* mouseup */
         document.body.addEventListener('mouseup', e => {
-            if(!manager.body.targetElm) return;
+            if (!manager.body.targetElm) return;
             const elm = manager.body.targetElm;
-            if(manager.body.corner === 'lt'){
+            if (manager.body.corner === 'lt') {
 
-            }else if(manager.body.corner === 'rt'){
-                elm.dataset.vertical = (!elm.dataset.vertical || elm.dataset.vertical==='false') ? 'true' : 'false';
+            } else if (manager.body.corner === 'rt') {
+                elm.dataset.vertical = (!elm.dataset.vertical || elm.dataset.vertical === 'false') ? 'true' : 'false';
                 if (elm.dataset.vertical === 'true') {
                     elm.style['writing-mode'] = 'vertical-rl';
                 } else {
@@ -534,11 +617,11 @@
         });
         /* mouseleave */
         document.body.addEventListener('mouseleave', e => {
-            if(!manager.body.targetElm) return;
+            if (!manager.body.targetElm) return;
             const elm = manager.body.targetElm;
-            if(manager.body.corner === 'lt'){
+            if (manager.body.corner === 'lt') {
 
-            }else if(document.body.dataset.corner === 'rt'){
+            } else if (document.body.dataset.corner === 'rt') {
                 elm.dataset.vertical = (elm.dataset.vertical === 'false') ? 'true' : 'false';
                 if (elm.dataset.vertical === 'true') {
                     elm.style['writing-mode'] = 'vertical-rl';
@@ -554,40 +637,46 @@
             restoreCSS(currentStyle);
         });
         /********************************* buttons for GRID(label) setting ***************************************/
-        gridSetting.onmouseup = function(e){
+        gridSetting.onmouseup = function (e) {
             e.stopPropagation();
             e.preventDefault();
             resetGridDialog();
         };
         /* close GRID(Label) setting window  */
-        closeSetting.onclick = function(e){
+        closeSetting.onclick = function (e) {
             e.stopPropagation();
             e.preventDefault();
-            gridSetting.style.display='none';
+            gridSetting.style.display = 'none';
             saveVariables();
             label_setting();
             restoreCSS('css');
         };
         /********************************* buttons for Print-Type ***************************************/
-        btnPostcard.addEventListener('mouseup',e=>{
-            currentStyle='css_postcard';
+        btnPostcard.addEventListener('mouseup', e => {
+            currentStyle = 'css_postcard';
             e.stopPropagation();
             e.preventDefault();
             postcard_setting();
             restoreCSS(currentStyle);
         });
-        btnLabel.addEventListener('mouseup', e=>{
-            if(localStorage.getItem('printType') === 'label'){
-                gridSetting.style.display='flex';
-            }else{
-                currentStyle='css';
+        btnLabel.addEventListener('mouseup', e => {
+            if (localStorage.getItem('printType') === 'label') {
+                gridSetting.style.display = 'flex';
+            } else {
+                currentStyle = 'css';
                 e.stopPropagation();
                 e.preventDefault();
                 label_setting();
                 restoreCSS(currentStyle);
             }
         });
-
+        /********************************* button for clear localStorage ***************************************/
+        btnClear.addEventListener('mouseup', e => {
+            e.stopPropagation();
+            e.preventDefault();
+            localStorage.clear();
+            document.getElementById('newstyle').innerText = '';
+        });
         /**
          *
          * FUNCTIONS
@@ -598,7 +687,7 @@
          * Initialize the app
          * data: an array of object [{key1: str1,key2: str2, ....}, {key1: str1,key2: str2, ....}, ....]
          * */
-        function init(data){
+        function init(data) {
             console.log('init===============')
             /* add new <style> element to replace css text dynamically */
             addNewStyleNode('newstyle');
@@ -607,12 +696,12 @@
             /* reset css variables via localStorage */
             restoreVariables();
             /* apply the style */
-            if(currentStyle==='css'){
+            if (currentStyle === 'css') {
                 label_setting();
-            }else{
+            } else {
                 postcard_setting();
             }
-            if(localStorage.getItem(currentStyle)){
+            if (localStorage.getItem(currentStyle)) {
                 restoreCSS(currentStyle);
             }
             /* setup label option dialog window */
@@ -628,10 +717,32 @@
             newstyle.id = styleID;
             document.body.appendChild(newstyle);
         }
+
+        /**
+         * convert csv with fieldsNameList to an object
+         * **/
+        function csvToObjectArr(csv, fieldsNameList) {
+            const arr = csv.split('\n');
+            const fields = fieldsNameList.split(',');
+            if(arr[0].split(',').length !== fields.length){
+                return [];
+            }
+            const obj = arr.reduce((temp, line) => {
+                const dataArr = line.split(',');
+                const item = {};
+                fields.forEach((fieldName, index) => {
+                    item[fieldName] = dataArr[index]
+                });
+                temp.push(item);
+                return temp
+            }, []);
+            return obj;
+        }
+
         /**
          * deploy data
          **/
-        function deploy(dataArr){
+        function deploy(dataArr) {
             dataArr.forEach((item, index) => {
                 /* Setting page and block */
                 const page = document.createElement('div');
@@ -649,26 +760,29 @@
                     div.dataset.index = index;
                     block.appendChild(div);
                     div.setAttribute('tabIndex', '-1');
+                    div.dataset.extend = 'size';
                 });
             })
         }
+
         /**
          * clear the values of controller(manager) object
          * */
-        function resetManager(obj){
+        function resetManager(obj) {
             obj.body.targetElm = null;
             obj.body.down = false;
             obj.body.corner = '';
             obj.body.resizable = false;
-            obj.body.startX = 0 ;
-            obj.selected.bounding= null;
-            obj.selected.wRate=1;
-            obj.selected.diffX= 0;
-            obj.selected.diffY= 0;
-            obj.selected.startX=0;
-            obj.selected.startY=0;
-            obj.selected.index= 0.
+            obj.body.startX = 0;
+            obj.selected.bounding = null;
+            obj.selected.wRate = 1;
+            obj.selected.diffX = 0;
+            obj.selected.diffY = 0;
+            obj.selected.startX = 0;
+            obj.selected.startY = 0;
+            obj.selected.index = 0.
         }
+
         /**
          * check whether the corner of the target element is clicked or not
          * elm: target element
@@ -708,6 +822,7 @@
             }
             return e.clientX < resizeArea_right && resizeArea_left < e.clientX && e.clientY < resizeArea_bottom && resizeArea_top < e.clientY;
         }
+
         /**
          * calculate the font-size based on elm width and w_rate
          * elm: target element
@@ -720,16 +835,9 @@
             const height = bounding.height;
             const charWidth = width / elm.innerText.length;
             suggestionSize = charWidth * w_rate;
-            // if (w_rate > 1.5 ) {
-            //
-            //     elm.style.color='red';
-            // } else {
-            //     //suggestionSize = parseInt(width / (elm.innerText.length * 0.85));
-            //     suggestionSize = charWidth * w_rate;
-            //     elm.style.color='blue';
-            // }
             return suggestionSize;
         }
+
         /**
          * Get the ratio font-size/charWidth of elm
          * **/
@@ -754,15 +862,16 @@
         /*          ------                                                                      */
         /* div.page                                                                             */
         /* ------                                                                               */
+
         /****************************************************************************************/
         /**
          * apply postcard style via add/remove classes and css-variables
          * **/
-        function postcard_setting(){
+        function postcard_setting() {
             localStorage.setItem('printType', 'postcard');
             localStorage.setItem('current', 'css_postcard');
             resetColor(btnPostcard.parentElement, 'li', 'white');
-            btnPostcard.style.color='pink';
+            btnPostcard.style.color = 'pink';
             Array.from(document.querySelectorAll('.block')).forEach(item => {
                 item.classList.remove('label');
                 item.classList.add('jpPostcard');
@@ -778,6 +887,7 @@
             document.documentElement.style.setProperty('--page-width', '100');
             document.documentElement.style.setProperty('--page-height', '146');
         }
+
         /****************************************************************************************/
         /*                            structure of page - label                              */
         /* div.page                                                                             */
@@ -794,15 +904,16 @@
         /*     ------                                                                           */
         /* div.page                                                                             */
         /* ------                                                                               */
+
         /****************************************************************************************/
         /**
          * apply label style via add/remove classes and css-variables
          * **/
-        function label_setting(){
+        function label_setting() {
             localStorage.setItem('printType', 'label');
             localStorage.setItem('current', 'css');
             resetColor(btnLabel.parentElement, 'li', 'white');
-            btnLabel.style.color='pink';
+            btnLabel.style.color = 'pink';
             Array.from(document.querySelectorAll('.block')).forEach(item => {
                 item.classList.remove('jpPostcard');
                 item.classList.add('label');
@@ -816,10 +927,11 @@
             Array.from(document.querySelectorAll('.page')).forEach(item => {
                 item.classList.add('grid');
             });
-            
-            document.documentElement.style.setProperty('--page-width','210');
+
+            document.documentElement.style.setProperty('--page-width', '210');
             document.documentElement.style.setProperty('--page-height', '297');
         }
+
         /****************************************************************************************/
         /*                            save/restore - style/cssVars                              */
         /*                                                                                      */
@@ -829,35 +941,37 @@
         /*   RESTORE        restoreCSS                     restoreVariables()                   */
         /*                      @init,@mouseup/leave,          @init                            */
         /*                      @btnLabel/Postcard.mouseup                                      */
+
         /****************************************************************************************/
         /**
          * restore CSS variables via localStorage
          * **/
-        function restoreVariables(){
+        function restoreVariables() {
             console.log('----------------restoreVariables');
             const vars = localStorage.getItem('variables');
-            if(vars){
+            if (vars) {
                 const obj = JSON.parse(vars);
                 const keys = Object.keys(obj);
-                if(keys.length){
-                    keys.forEach(key=>{
+                if (keys.length) {
+                    keys.forEach(key => {
                         document.documentElement.style.setProperty(key, obj[key]);
                     });
                 }
             }
         }
+
         /**
          * Setup Label option dialog window
          * Dependencies
          * variable: inputs(input elements of labelOptionWindow), properties(css-variables)
          * link input value to css-variable
          * **/
-        function setupLabelOptionWindow(){
+        function setupLabelOptionWindow() {
             console.log('----------------SetupLabelOptionWindow');
             resetGridDialog();
-            inputs.forEach((input, index)=>{
-                input.value=getComputedStyle(document.documentElement).getPropertyValue(properties[index]);
-                input.addEventListener('change', e=> {
+            inputs.forEach((input, index) => {
+                input.value = getComputedStyle(document.documentElement).getPropertyValue(properties[index]);
+                input.addEventListener('change', e => {
                     document.documentElement.style.setProperty(properties[index], input.value);
                 })
             });
@@ -868,38 +982,38 @@
                 resetGridDialog();
             });
         }
+
         /**
          * save the current style to localStorage
          * index: block-index where the target element exists
          **/
-        function saveCSS(index){
+        function saveCSS(index) {
             console.log('saveCSS==========================');
-            index= index ||0;
+            index = index || 0;
             let fields;
-            const properties=['transform', 'writing-mode', 'font-size'];
+            const properties = ['transform', 'writing-mode', 'font-size'];
 
             const block = document.querySelectorAll('.block')[index];
-            if(!block)return;
-            const divs= Array.from(block.querySelectorAll('div'));
+            if (!block) return;
+            const divs = Array.from(block.querySelectorAll('div'));
             fields = divs.map(item => {
                 return item.className
             });
-            const css={};
+            const css = {};
             fields.forEach(field => {
-                const div = block.querySelector('.'+ field);
-                if(div.dataset.extend==='space'){
+                const div = block.querySelector('.' + field);
+                if (div.dataset.extend === 'space') {
                     properties.push('display');
                     properties.push('justify-content');
                     properties.push('width');
-                    //properties.push('color');
                 }
-                css[field]={};
-                properties.forEach(property=>{
-                    css[field][property]=getComputedStyle(div)[property];
+                css[field] = {};
+                properties.forEach(property => {
+                    css[field][property] = getComputedStyle(div)[property];
                 });
             });
             /* class指定によるスタイルが有効なるようにstyle属性はクリア */
-            divs.forEach(item => item.style='');
+            divs.forEach(item => item.style = '');
             localStorage.setItem(currentStyle, JSON.stringify(css));
             saveVariables();
         }
@@ -911,29 +1025,29 @@
         function restoreCSS(cssName) {
             console.log('------------restoreCSS');
             const saved_css = localStorage.getItem(cssName);
-            if(!saved_css){
+            if (!saved_css) {
                 return;
             }
             const targetClasses = [];
-            const css=JSON.parse(saved_css);
+            const css = JSON.parse(saved_css);
             const classes = Object.keys(css);
-            let code = classes.reduce( (temp, className) => {
+            let code = classes.reduce((temp, className) => {
                 let str = '.' + className + '{';
                 const properties = Object.keys(css[className]);
                 properties.forEach(property => {
-                    if(property==='justify-content' && css[className][property]==='space-around'){
+                    if (property === 'justify-content' && css[className][property] === 'space-around') {
                         targetClasses.push(className);
                     }
-                    str += (property + ':' + css[className][property]+';');
+                    str += (property + ':' + css[className][property] + ';');
                 });
                 return temp + str + '}'
-            },'');
-            document.getElementById('newstyle').innerText=code;
+            }, '');
+            document.getElementById('newstyle').innerText = code;
             targetClasses.forEach(item => {
-                const divs = document.querySelectorAll('.'+item);
-                divs.forEach(div=>{
-                    if(!div.querySelectorAll('span').length){
-                        div.innerHTML = '<span>'+div.innerText.split('').join('</span><span>')+'</span>';
+                const divs = document.querySelectorAll('.' + item);
+                divs.forEach(div => {
+                    if (!div.querySelectorAll('span').length) {
+                        div.innerHTML = '<span>' + div.innerText.split('').join('</span><span>') + '</span>';
                         div.dataset.extend = 'space';
                     }
                 });
@@ -943,17 +1057,18 @@
         /**
          * reset the text color to baseColor of all elements of the type in parentElm
          * **/
-        function resetColor(parentElm, type, baseColor){
+        function resetColor(parentElm, type, baseColor) {
             const targets = Array.from(parentElm.querySelectorAll(type));
             targets.forEach(target => {
                 target.style.color = baseColor;
             });
         }
+
         /**
          * When changing printStyle, parent(.page)-child(.block) relations must be rearranged.
          * **/
-        function replaceBlock(num){
-            const cellsPerPage = num || parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count'))*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
+        function replaceBlock(num) {
+            const cellsPerPage = num || parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count')) * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
             const blocks = Array.from(document.querySelectorAll('.block'));
             let pages = Array.from(document.querySelectorAll('.page'));
             /* reset page - block relations */
@@ -964,9 +1079,9 @@
                 })
             });
             /* IF number of existing pages is less than expected */
-            const numOfPages = parseInt(blocks.length/cellsPerPage) + 1;
-            if(numOfPages > pages.length){
-                for(let i= pages.length; i<numOfPages; i++){
+            const numOfPages = parseInt(blocks.length / cellsPerPage) + 1;
+            if (numOfPages > pages.length) {
+                for (let i = pages.length; i < numOfPages; i++) {
                     const div = document.createElement('div');
                     div.classList.add('page');
                     document.body.appendChild(div);
@@ -974,16 +1089,16 @@
                 pages = Array.from(document.querySelectorAll('.page'));
             }
             /* rebuild page - block relations */
-            pages.forEach((page,index) => {
+            pages.forEach((page, index) => {
                 let block_count;
-                for(let i=0; i<cellsPerPage; i++){
-                    block_count=cellsPerPage*index + i;
-                    if(block_count<blocks.length){
+                for (let i = 0; i < cellsPerPage; i++) {
+                    block_count = cellsPerPage * index + i;
+                    if (block_count < blocks.length) {
                         page.appendChild(blocks[block_count]);
                     }
                 }
                 /* IF pages > expected, mark it as empty */
-                if(!Array.from(page.querySelectorAll('.block')).length){
+                if (!Array.from(page.querySelectorAll('.block')).length) {
                     page.classList.remove('page');
                     page.classList.add('empty');
                 }
@@ -991,33 +1106,34 @@
             });
 
         }
+
         /**
          * save css variables to localStorage
          * This function is called in saveCSS(), closeSetting.onclick handler
          * **/
-        function saveVariables(){
+        function saveVariables() {
             console.log('-------------------saveVariables');
             let filtered, css, obj;
             const keys = ['--column-count', '--row-count', '--column-gap', '--row-gap', '--offset-y', '--offset-x', '--block-width', '--block-height'];
             const settings = keys.reduce((prev, key) => {
                 prev[key] = getComputedStyle(document.documentElement).getPropertyValue(key);
                 return prev;
-            },{});
+            }, {});
             localStorage.setItem('variables', JSON.stringify(settings));
         }
 
-        function resetGridDialog(){
-            const num = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count'))*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
+        function resetGridDialog() {
+            const num = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count')) * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
             const divs = Array.from(document.querySelectorAll('#rightPane>div'));
             divs.forEach((div, index) => {
-                if( index < num ){
+                if (index < num) {
                     div.style.display = 'flex';
-                }else{
-                    div.style.display='none';
+                } else {
+                    div.style.display = 'none';
                 }
             });
         }
-    })(PRESET);
+    })();
 </script>
 </body>
 </html>
