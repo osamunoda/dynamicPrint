@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang='ja'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset='UTF-8'>
+    <meta name='viewport'
+          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
     <title>Dynamic Printer</title>
     <style>
         *{
@@ -85,7 +85,7 @@
         .jpPostcard{
             width:100mm;
             height:148mm;
-            background-image:url("hagaki.png");
+            background-image:url('hagaki.png');
             background-size:100% 100%;
         }
         .label{
@@ -101,7 +101,7 @@
             left:0;
         }
         .block>div:focus::after{
-            content:"";
+            content:'';
             position:absolute;
             width:10px;
             height:10px;
@@ -110,7 +110,7 @@
             background:rgba(0,0,200,0.5)
         }
         .block>div:focus::before{
-            content:"";
+            content:'';
             position:absolute;
             width:10px;
             height:10px;
@@ -136,7 +136,7 @@
             box-shadow: 0 0 5px white;
         }
         .name::after{
-            content:"　様"
+            content:'　様'
         }
 
         /***** Label setting *****/
@@ -244,33 +244,33 @@
     </style>
 </head>
 <body>
-<div id="header">
-    <h1><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#eee" d="M19 8H5c-1.66 0-3 1.34-3 3v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.66-1.34-3-3-3zm-4 11H9c-.55 0-1-.45-1-1v-4h8v4c0 .55-.45 1-1 1zm4-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2-9H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"/></svg>
+<div id='header'>
+    <h1><svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path fill='#eee' d='M19 8H5c-1.66 0-3 1.34-3 3v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.66-1.34-3-3-3zm-4 11H9c-.55 0-1-.45-1-1v-4h8v4c0 .55-.45 1-1 1zm4-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2-9H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z'/></svg>
         Dynamic Print</h1>
-    <div id="printType"><ul><li id="btnPostcard">PostCard</li><li id="btnLabel">Label</li></ul></div>
-    <div id="gridSetting">
+    <div id='printType'><ul><li id='btnPostcard'>PostCard</li><li id='btnLabel'>Label</li></ul></div>
+    <div id='gridSetting'>
         <div>
             <div>
                 Grid Setting
             </div>
-            <svg id="closeSetting" width="32px" height="32px" viewBox="0 0 24 24" fill="#555">
-                <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3c-.39.39-1.02.39-1.41 0L12 13.41 9.11 16.3c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z"/>
+            <svg id='closeSetting' width='32px' height='32px' viewBox='0 0 24 24' fill='#555'>
+                <path d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3c-.39.39-1.02.39-1.41 0L12 13.41 9.11 16.3c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z'/>
             </svg>
         </div>
-        <div id="settingPanel">
-            <div id="leftPane">
-                <div>column<input value=2 id="colCount"></div>
-                <div>row<input value=5 id="rowCount"></div>
-                <div>padding-top<input value=20 id="offsetY"></div>
-                <div>padding-side<input value=10 id="offsetX"></div>
-                <div>column-gap<input value=5 id="colGap"></div>
-                <div>row-gap<input value=2 id="rowGap"></div>
+        <div id='settingPanel'>
+            <div id='leftPane'>
+                <div>column<input value=2 id='colCount'></div>
+                <div>row<input value=5 id='rowCount'></div>
+                <div>padding-top<input value=20 id='offsetY'></div>
+                <div>padding-side<input value=10 id='offsetX'></div>
+                <div>column-gap<input value=5 id='colGap'></div>
+                <div>row-gap<input value=2 id='rowGap'></div>
                 <br>
                 <div>unit: mm</div>
             </div>
-            <div id="rightPane">
-                <div>⇤<input id="blockWidth">⇥</div>
-                <div>⇤<input id="blockHeight">⇥</div>
+            <div id='rightPane'>
+                <div>⇤<input id='blockWidth'>⇥</div>
+                <div>⇤<input id='blockHeight'>⇥</div>
                 <div></div>
                 <div></div>
                 <div></div>
@@ -318,27 +318,27 @@
         
         /* SAMPLE DATA */
         let data = [
-            {name: "野田 修",addr:"千葉県市川市市川1-2-3","zip1":"272",zip2:"0033"},
-            {name:"西原 順子", addr:"和歌山県南部町3-10","zip1":"334",zip2:"5432"},
-            {name:"東京 一郎", addr:"文京区本郷7-3-1",zip1:"102",zip2:"1123"},
-            {name:"明治 二郎",addr:"千代田区神田駿河台1-1",zip1:"123",zip2:"4567"},
-            {name:"早稲田 三郎",addr:"新宿区戸塚町1-104",zip1:"234",zip2:"5678"},
-            {name:"慶応 士郎",addr:"港区三田2-15-45",zip1:"345",zip2:"6789"},
-            {name:"法政 五郎",addr:"千代田区富士見2-13-1",zip1:"456",zip2:"7890"},
-            {name:"立教 六郎",addr:"豊島区西池袋3-34-1",zip1:"567",zip2:"8901"},
-            {name:"青学 菜々子",addr:"渋谷区渋谷4-4-25",zip1:"678",zip2:"9012"},
-            {name:"大東 八郎",addr:"板橋区高島平1-9-1",zip1:"789",zip2:"0123"},
-            {name:"山梨 久子",addr:"山梨県甲府市酒折2-4-5",zip1:"890",zip2:"1234"},
-            {name:"東海 徹",addr:"渋谷区富ヶ谷2-28-4",zip1:"901",zip2:"2345"},
-            {name:"順天堂 磯子",addr:"文京区本郷2-1-1",zip1:"012",zip2:"3456"},
-            {name:"大阪 花子",addr:"大阪府吹田市山田丘1-1",zip1:"111",zip2:"1112"},
-            {name:"名古屋 太郎",addr:"名古屋市千種区不老町1",zip1:"222",zip2:"3333"},
-            {name:"同志社 伊都子",addr:"京都市上京区今出川通烏丸東入玄武町601",zip1:"333",zip2:"4444"},
-            {name:"関学 すみれ",addr:"兵庫県西宮市上ケ原一番町1-155",zip1:"444",zip2:"5555"},
-            {name:"北海 大地",addr:"札幌市北区北8-5",zip1:"666",zip2:"7777"},
-            {name:"仙台 達夫",addr:"仙台市青葉区片平2-1-1",zip1:"888",zip2:"9999"},
-            {name:"福島 あいこ",addr:"福島市金谷川1",zip1:"999",zip2:"0101"},
-            {name:"千葉 一郎",addr:"千葉市稲毛区弥生町1-33",zip1:"001",zip2:"2323"}
+            {name: '野田 修',addr:'千葉県市川市市川1-2-3','zip1':'272',zip2:'0033'},
+            {name:'西原 順子', addr:'和歌山県南部町3-10','zip1':'334',zip2:'5432'},
+            {name:'東京 一郎', addr:'文京区本郷7-3-1',zip1:'102',zip2:'1123'},
+            {name:'明治 二郎',addr:'千代田区神田駿河台1-1',zip1:'123',zip2:'4567'},
+            {name:'早稲田 三郎',addr:'新宿区戸塚町1-104',zip1:'234',zip2:'5678'},
+            {name:'慶応 士郎',addr:'港区三田2-15-45',zip1:'345',zip2:'6789'},
+            {name:'法政 五郎',addr:'千代田区富士見2-13-1',zip1:'456',zip2:'7890'},
+            {name:'立教 六郎',addr:'豊島区西池袋3-34-1',zip1:'567',zip2:'8901'},
+            {name:'青学 菜々子',addr:'渋谷区渋谷4-4-25',zip1:'678',zip2:'9012'},
+            {name:'大東 八郎',addr:'板橋区高島平1-9-1',zip1:'789',zip2:'0123'},
+            {name:'山梨 久子',addr:'山梨県甲府市酒折2-4-5',zip1:'890',zip2:'1234'},
+            {name:'東海 徹',addr:'渋谷区富ヶ谷2-28-4',zip1:'901',zip2:'2345'},
+            {name:'順天堂 磯子',addr:'文京区本郷2-1-1',zip1:'012',zip2:'3456'},
+            {name:'大阪 花子',addr:'大阪府吹田市山田丘1-1',zip1:'111',zip2:'1112'},
+            {name:'名古屋 太郎',addr:'名古屋市千種区不老町1',zip1:'222',zip2:'3333'},
+            {name:'同志社 伊都子',addr:'京都市上京区今出川通烏丸東入玄武町601',zip1:'333',zip2:'4444'},
+            {name:'関学 すみれ',addr:'兵庫県西宮市上ケ原一番町1-155',zip1:'444',zip2:'5555'},
+            {name:'北海 大地',addr:'札幌市北区北8-5',zip1:'666',zip2:'7777'},
+            {name:'仙台 達夫',addr:'仙台市青葉区片平2-1-1',zip1:'888',zip2:'9999'},
+            {name:'福島 あいこ',addr:'福島市金谷川1',zip1:'999',zip2:'0101'},
+            {name:'千葉 一郎',addr:'千葉市稲毛区弥生町1-33',zip1:'001',zip2:'2323'}
         ];
         if(!PRESET){
             data=[];
@@ -354,7 +354,7 @@
             body:{
                 targetElm: null, /* selected element */
                 down: false, /* mousedown flag */
-                corner:"", /* clicked(mousedown) corner */
+                corner:'', /* clicked(mousedown) corner */
                 resizable: false, /* resizeable flag */
                 startX:0 /* x-position of mousedown  */
             },
@@ -375,22 +375,22 @@
          *
          * */
             
-        let currentStyle = localStorage.getItem("current") || "css";
-        const btnPostcard = document.getElementById("btnPostcard");
-        const btnLabel = document.getElementById("btnLabel");
-        const gridSetting = document.getElementById("gridSetting");
-        const colCount = document.getElementById("colCount");
-        const rowCount = document.getElementById("rowCount");
-        const offsetX=document.getElementById("offsetX");
-        const offsetY = document.getElementById("offsetY");
-        const colGap = document.getElementById("colGap");
-        const rowGap = document.getElementById("rowGap");
-        const blockWidth = document.getElementById("blockWidth");
-        const blockHeight = document.getElementById("blockHeight");
-        const closeSetting = document.getElementById("closeSetting");
-        const rightPane = document.getElementById("rightPane");
+        let currentStyle = localStorage.getItem('current') || 'css';
+        const btnPostcard = document.getElementById('btnPostcard');
+        const btnLabel = document.getElementById('btnLabel');
+        const gridSetting = document.getElementById('gridSetting');
+        const colCount = document.getElementById('colCount');
+        const rowCount = document.getElementById('rowCount');
+        const offsetX=document.getElementById('offsetX');
+        const offsetY = document.getElementById('offsetY');
+        const colGap = document.getElementById('colGap');
+        const rowGap = document.getElementById('rowGap');
+        const blockWidth = document.getElementById('blockWidth');
+        const blockHeight = document.getElementById('blockHeight');
+        const closeSetting = document.getElementById('closeSetting');
+        const rightPane = document.getElementById('rightPane');
         const inputs=[colCount, rowCount, offsetX, offsetY, colGap, rowGap,blockWidth, blockHeight];/* input elements of labelOptionWindow */
-        const properties = ["--column-count", "--row-count","--offset-x","--offset-y","--column-gap","--row-gap","--block-width","--block-height"];/* CSS-variables */
+        const properties = ['--column-count', '--row-count','--offset-x','--offset-y','--column-gap','--row-gap','--block-width','--block-height'];/* CSS-variables */
 
         /**
          * 
@@ -409,19 +409,19 @@
 
         /****************************  document.body  ***********************************/
         /* dragover */
-        document.body.addEventListener("dragover", e=>{
+        document.body.addEventListener('dragover', e=>{
             e.preventDefault();
             e.dataTransfer.dropEffect='copy';
         });
         /* drop */
-        document.body.addEventListener("drop", e => {
+        document.body.addEventListener('drop', e => {
             if(PRESET) return;
-            const data = e.dataTransfer.getData("text");
-            const dataArr=data.split("_____");
-            const arr=dataArr[0].split("\n");
-            const fields = dataArr[1].split(",");
+            const data = e.dataTransfer.getData('text');
+            const dataArr=data.split('_____');
+            const arr=dataArr[0].split('\n');
+            const fields = dataArr[1].split(',');
             const obj = arr.reduce((temp,line,index) => {
-                const dataArr=line.split(",");
+                const dataArr=line.split(',');
                 const item = {};
                 fields.forEach((fieldName, index)=>{
                     item[fieldName] = dataArr[index]
@@ -433,13 +433,13 @@
             init(obj);
         });
         /* mousedown */
-        document.body.addEventListener("mousedown", e => {
+        document.body.addEventListener('mousedown', e => {
             /* elm: selected element to move/resize */
             let elm;
-            if (e.target.parentNode && e.target.parentNode.classList.contains("block")) {
+            if (e.target.parentNode && e.target.parentNode.classList.contains('block')) {
                 elm = e.target;
             } else {
-                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList && e.target.parentNode.parentNode.classList.contains("block")) {
+                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList && e.target.parentNode.parentNode.classList.contains('block')) {
                     elm = e.target.parentNode;
                 } else {
                     return;
@@ -450,32 +450,32 @@
             /*saving original bounding size*/
             manager.selected.bounding = elm.getBoundingClientRect();
             /*Check whether corners of the selected is clicked*/
-            if (checkInCorner(elm, e, "lt", 10)) {/*in case of left-top corner: change the mode of resizing*/
-                manager.body.corner="lt";
-                elm.dataset.extend = (elm.dataset.extend === "size") ? "space" : "size";
+            if (checkInCorner(elm, e, 'lt', 10)) {/*in case of left-top corner: change the mode of resizing*/
+                manager.body.corner='lt';
+                elm.dataset.extend = (elm.dataset.extend === 'size') ? 'space' : 'size';
                 /* Get the all objects to change the mode */
-                const targets = Array.from(document.querySelectorAll("."+elm.className));
+                const targets = Array.from(document.querySelectorAll('.'+elm.className));
                 targets.forEach(item=>{
                     /* toggle the extend mode and settings */
-                    if (elm.dataset.extend === "space") {
-                        item.style="";
-                        item.style.display = "flex";
-                        item.innerHTML = "<span>" + item.innerText.split("").join("</span><span>") + "</span>";
-                        item.style["justify-content"] = "space-around";
-                    } else if(elm.dataset.extend === "size"){
-                        item.style.display = "block";
-                        item.innerHTML = item.innerHTML.split(/<\/?span>/).join("");
-                        item.style.width = "auto";
+                    if (elm.dataset.extend === 'space') {
+                        item.style='';
+                        item.style.display = 'flex';
+                        item.innerHTML = '<span>' + item.innerText.split('').join('</span><span>') + '</span>';
+                        item.style['justify-content'] = 'space-around';
+                    } else if(elm.dataset.extend === 'size'){
+                        item.style.display = 'block';
+                        item.innerHTML = item.innerHTML.split(/<\/?span>/).join('');
+                        item.style.width = 'auto';
                     }
                 });
-            } else if (checkInCorner(elm, e, "rt", 10)) {/*in case of right-top corner: change the mode of resizing*/
-                manager.body.corner="rt";
-            } else if (checkInCorner(elm, e, "rb", 10)) {/*in case of left-bottom corner: change the mode of resizing*/
-                manager.body.resizable = "true";
+            } else if (checkInCorner(elm, e, 'rt', 10)) {/*in case of right-top corner: change the mode of resizing*/
+                manager.body.corner='rt';
+            } else if (checkInCorner(elm, e, 'rb', 10)) {/*in case of left-bottom corner: change the mode of resizing*/
+                manager.body.resizable = 'true';
                 const ratio = getBasicRatio(elm);
                 manager.selected.wRate = ratio.wRate;
             } else {/* when no corner is selected, MOVE */
-                manager.body.down = "true";
+                manager.body.down = 'true';
             }
             /* saving start condition */
             const transform = getComputedStyle(elm).transform;
@@ -483,7 +483,7 @@
             if (xy) {
                 manager.selected.diffX = parseInt(xy[4]);
                 manager.selected.diffY = parseInt(xy[5]);
-                elm.style.transform = "translate(" + manager.selected.diffX + "," + manager.selected.diffY + ")";
+                elm.style.transform = 'translate(' + manager.selected.diffX + ',' + manager.selected.diffY + ')';
             }
             manager.selected.startX = e.pageX - (manager.selected.diffX || 0);
             manager.selected.startY = e.pageY - (manager.selected.diffY || 0);
@@ -492,18 +492,18 @@
 
         });
         /* mousemove */
-        document.body.addEventListener("mousemove", e => {
+        document.body.addEventListener('mousemove', e => {
             const elm = manager.body.targetElm;
-            if (manager.body.resizable === "true") {
+            if (manager.body.resizable === 'true') {
                 const diffX = e.pageX - manager.body.startX;
-                elm.style.width = manager.selected.bounding.width + diffX + "px";
-                if (elm.dataset.extend === "space") {
+                elm.style.width = manager.selected.bounding.width + diffX + 'px';
+                if (elm.dataset.extend === 'space') {
 
                 } else {
                     const newSize = calcFontSize(elm, manager.selected.wRate);
-                    elm.style["font-size"] = newSize + "px";
+                    elm.style['font-size'] = newSize + 'px';
                 }
-            } else if (manager.body.down === "true") {
+            } else if (manager.body.down === 'true') {
                 const diffX = e.pageX - manager.selected.startX;
                 const diffY = e.pageY - manager.selected.startY;
                 elm.style.transform = `translate(${diffX}px, ${diffY}px)`;
@@ -512,42 +512,42 @@
             }
         });
         /* mouseup */
-        document.body.addEventListener("mouseup", e => {
+        document.body.addEventListener('mouseup', e => {
             if(!manager.body.targetElm) return;
             const elm = manager.body.targetElm;
-            if(manager.body.corner === "lt"){
+            if(manager.body.corner === 'lt'){
 
-            }else if(manager.body.corner === "rt"){
-                elm.dataset.vertical = (!elm.dataset.vertical || elm.dataset.vertical==="false") ? "true" : "false";
-                if (elm.dataset.vertical === "true") {
-                    elm.style["writing-mode"] = "vertical-rl";
+            }else if(manager.body.corner === 'rt'){
+                elm.dataset.vertical = (!elm.dataset.vertical || elm.dataset.vertical==='false') ? 'true' : 'false';
+                if (elm.dataset.vertical === 'true') {
+                    elm.style['writing-mode'] = 'vertical-rl';
                 } else {
-                    elm.style["writing-mode"] = "horizontal-tb";
+                    elm.style['writing-mode'] = 'horizontal-tb';
                 }
                 const bounding = manager.selected.bounding;
-                elm.style.width = bounding.height + "px";
-                elm.style.height = bounding.width + "px";
+                elm.style.width = bounding.height + 'px';
+                elm.style.height = bounding.width + 'px';
             }
             resetManager(manager);
             saveCSS(manager.body.index);
             restoreCSS(currentStyle);
         });
         /* mouseleave */
-        document.body.addEventListener("mouseleave", e => {
+        document.body.addEventListener('mouseleave', e => {
             if(!manager.body.targetElm) return;
             const elm = manager.body.targetElm;
-            if(manager.body.corner === "lt"){
+            if(manager.body.corner === 'lt'){
 
-            }else if(document.body.dataset.corner === "rt"){
-                elm.dataset.vertical = (elm.dataset.vertical === "false") ? "true" : "false";
-                if (elm.dataset.vertical === "true") {
-                    elm.style["writing-mode"] = "vertical-rl";
+            }else if(document.body.dataset.corner === 'rt'){
+                elm.dataset.vertical = (elm.dataset.vertical === 'false') ? 'true' : 'false';
+                if (elm.dataset.vertical === 'true') {
+                    elm.style['writing-mode'] = 'vertical-rl';
                 } else {
-                    elm.style["writing-mode"] = "horizontal-tb";
+                    elm.style['writing-mode'] = 'horizontal-tb';
                 }
                 const bounding = manager.selected.bounding;
-                elm.style.width = bounding.height + "px";
-                elm.style.height = bounding.width + "px";
+                elm.style.width = bounding.height + 'px';
+                elm.style.height = bounding.width + 'px';
             }
             resetManager(manager);
             saveCSS(manager.body.index);
@@ -563,24 +563,24 @@
         closeSetting.onclick = function(e){
             e.stopPropagation();
             e.preventDefault();
-            gridSetting.style.display="none";
+            gridSetting.style.display='none';
             saveVariables();
             label_setting();
-            restoreCSS("css");
+            restoreCSS('css');
         };
         /********************************* buttons for Print-Type ***************************************/
-        btnPostcard.addEventListener("mouseup",e=>{
-            currentStyle="css_postcard";
+        btnPostcard.addEventListener('mouseup',e=>{
+            currentStyle='css_postcard';
             e.stopPropagation();
             e.preventDefault();
             postcard_setting();
             restoreCSS(currentStyle);
         });
-        btnLabel.addEventListener("mouseup", e=>{
-            if(localStorage.getItem("printType") === "label"){
-                gridSetting.style.display="flex";
+        btnLabel.addEventListener('mouseup', e=>{
+            if(localStorage.getItem('printType') === 'label'){
+                gridSetting.style.display='flex';
             }else{
-                currentStyle="css";
+                currentStyle='css';
                 e.stopPropagation();
                 e.preventDefault();
                 label_setting();
@@ -599,15 +599,15 @@
          * data: an array of object [{key1: str1,key2: str2, ....}, {key1: str1,key2: str2, ....}, ....]
          * */
         function init(data){
-            console.log("init===============")
+            console.log('init===============')
             /* add new <style> element to replace css text dynamically */
-            addNewStyleNode("newstyle");
+            addNewStyleNode('newstyle');
             /* deploy data into DOMs */
             deploy(data);
             /* reset css variables via localStorage */
             restoreVariables();
             /* apply the style */
-            if(currentStyle==="css"){
+            if(currentStyle==='css'){
                 label_setting();
             }else{
                 postcard_setting();
@@ -617,14 +617,14 @@
             }
             /* setup label option dialog window */
             setupLabelOptionWindow();
-            console.log("====================init:end")
+            console.log('====================init:end')
         }
 
         /**
          *  add new style element named styleID
          **/
         function addNewStyleNode(styleID) {
-            const newstyle = document.createElement("style");
+            const newstyle = document.createElement('style');
             newstyle.id = styleID;
             document.body.appendChild(newstyle);
         }
@@ -634,21 +634,21 @@
         function deploy(dataArr){
             dataArr.forEach((item, index) => {
                 /* Setting page and block */
-                const page = document.createElement("div");
-                page.classList.add("page");
+                const page = document.createElement('div');
+                page.classList.add('page');
                 document.body.appendChild(page);
-                const block = document.createElement("div");
-                block.classList.add("block");
+                const block = document.createElement('div');
+                block.classList.add('block');
                 page.appendChild(block);
                 const keys = Object.keys(item);
                 /* Setting data in each block */
                 keys.forEach(key => {
-                    const div = document.createElement("div");
+                    const div = document.createElement('div');
                     div.classList.add(key);
                     div.innerText = item[key];
                     div.dataset.index = index;
                     block.appendChild(div);
-                    div.setAttribute("tabIndex", "-1");
+                    div.setAttribute('tabIndex', '-1');
                 });
             })
         }
@@ -658,7 +658,7 @@
         function resetManager(obj){
             obj.body.targetElm = null;
             obj.body.down = false;
-            obj.body.corner = "";
+            obj.body.corner = '';
             obj.body.resizable = false;
             obj.body.startX = 0 ;
             obj.selected.bounding= null;
@@ -673,29 +673,29 @@
          * check whether the corner of the target element is clicked or not
          * elm: target element
          * e: argument of mouse-event handler
-         * corner: string "lt" or "rt" or "lb" or "rb"
+         * corner: string 'lt' or 'rt' or 'lb' or 'rb'
          * size: with of the corner rectangle
          * */
         function checkInCorner(elm, e, corner, size) {
             size = size || 0;
             let resizeArea_left, resizeArea_right, resizeArea_top, resizeArea_bottom;
             const bounding = elm.getBoundingClientRect();
-            if (typeof corner === "string" && (corner.toLowerCase() === "lt" || corner.toLowerCase() === "tl")) {
+            if (typeof corner === 'string' && (corner.toLowerCase() === 'lt' || corner.toLowerCase() === 'tl')) {
                 resizeArea_left = bounding.left;
                 resizeArea_top = bounding.top;
                 resizeArea_right = bounding.left + size;
                 resizeArea_bottom = bounding.top + size;
-            } else if (typeof corner === "string" && (corner.toLowerCase() === "rt" || corner.toLowerCase() === "tr")) {
+            } else if (typeof corner === 'string' && (corner.toLowerCase() === 'rt' || corner.toLowerCase() === 'tr')) {
                 resizeArea_left = bounding.right - size;
                 resizeArea_top = bounding.top;
                 resizeArea_right = bounding.right;
                 resizeArea_bottom = bounding.top + size;
-            } else if (typeof corner === "string" && (corner.toLowerCase() === "lb" || corner.toLowerCase() === "bl")) {
+            } else if (typeof corner === 'string' && (corner.toLowerCase() === 'lb' || corner.toLowerCase() === 'bl')) {
                 resizeArea_left = bounding.left;
                 resizeArea_top = bounding.bottom - size;
                 resizeArea_right = bounding.left + size;
                 resizeArea_bottom = bounding.bottom;
-            } else if (typeof corner === "string" && (corner.toLowerCase() === "rb" || corner.toLowerCase() === "br")) {
+            } else if (typeof corner === 'string' && (corner.toLowerCase() === 'rb' || corner.toLowerCase() === 'br')) {
                 resizeArea_left = bounding.right - size;
                 resizeArea_top = bounding.bottom - size;
                 resizeArea_right = bounding.right;
@@ -722,11 +722,11 @@
             suggestionSize = charWidth * w_rate;
             // if (w_rate > 1.5 ) {
             //
-            //     elm.style.color="red";
+            //     elm.style.color='red';
             // } else {
             //     //suggestionSize = parseInt(width / (elm.innerText.length * 0.85));
             //     suggestionSize = charWidth * w_rate;
-            //     elm.style.color="blue";
+            //     elm.style.color='blue';
             // }
             return suggestionSize;
         }
@@ -738,7 +738,7 @@
             const textLength = elm.innerText.length;
             const width = bounding.width;
             const height = bounding.height;
-            const size = parseInt(getComputedStyle(elm)["font-size"]);
+            const size = parseInt(getComputedStyle(elm)['font-size']);
             const w_ratio = size / (width / textLength);
             const h_ratio = size / height;
             return {wRate: w_ratio, hRate: h_ratio};
@@ -759,24 +759,24 @@
          * apply postcard style via add/remove classes and css-variables
          * **/
         function postcard_setting(){
-            localStorage.setItem("printType", "postcard");
-            localStorage.setItem("current", "css_postcard");
-            resetColor(btnPostcard.parentElement, "li", "white");
-            btnPostcard.style.color="pink";
-            Array.from(document.querySelectorAll(".block")).forEach(item => {
-                item.classList.remove("label");
-                item.classList.add("jpPostcard");
+            localStorage.setItem('printType', 'postcard');
+            localStorage.setItem('current', 'css_postcard');
+            resetColor(btnPostcard.parentElement, 'li', 'white');
+            btnPostcard.style.color='pink';
+            Array.from(document.querySelectorAll('.block')).forEach(item => {
+                item.classList.remove('label');
+                item.classList.add('jpPostcard');
             });
-            Array.from(document.querySelectorAll(".empty")).forEach(item => {
-                item.classList.remove("empty");
-                item.classList.add("page");
+            Array.from(document.querySelectorAll('.empty')).forEach(item => {
+                item.classList.remove('empty');
+                item.classList.add('page');
             });
-            Array.from(document.querySelectorAll(".page")).forEach(item => {
-                item.classList.remove("grid");
+            Array.from(document.querySelectorAll('.page')).forEach(item => {
+                item.classList.remove('grid');
             });
             replaceBlock(1);
-            document.documentElement.style.setProperty("--page-width", "100");
-            document.documentElement.style.setProperty("--page-height", "146");
+            document.documentElement.style.setProperty('--page-width', '100');
+            document.documentElement.style.setProperty('--page-height', '146');
         }
         /****************************************************************************************/
         /*                            structure of page - label                              */
@@ -799,26 +799,26 @@
          * apply label style via add/remove classes and css-variables
          * **/
         function label_setting(){
-            localStorage.setItem("printType", "label");
-            localStorage.setItem("current", "css");
-            resetColor(btnLabel.parentElement, "li", "white");
-            btnLabel.style.color="pink";
-            Array.from(document.querySelectorAll(".block")).forEach(item => {
-                item.classList.remove("jpPostcard");
-                item.classList.add("label");
+            localStorage.setItem('printType', 'label');
+            localStorage.setItem('current', 'css');
+            resetColor(btnLabel.parentElement, 'li', 'white');
+            btnLabel.style.color='pink';
+            Array.from(document.querySelectorAll('.block')).forEach(item => {
+                item.classList.remove('jpPostcard');
+                item.classList.add('label');
             });
-            Array.from(document.querySelectorAll(".empty")).forEach(item => {
-                item.classList.remove("empty");
-                item.classList.add("page");
+            Array.from(document.querySelectorAll('.empty')).forEach(item => {
+                item.classList.remove('empty');
+                item.classList.add('page');
             });
             /* rebuild page-block relations */
             replaceBlock();
-            Array.from(document.querySelectorAll(".page")).forEach(item => {
-                item.classList.add("grid");
+            Array.from(document.querySelectorAll('.page')).forEach(item => {
+                item.classList.add('grid');
             });
             
-            document.documentElement.style.setProperty("--page-width","210");
-            document.documentElement.style.setProperty("--page-height", "297");
+            document.documentElement.style.setProperty('--page-width','210');
+            document.documentElement.style.setProperty('--page-height', '297');
         }
         /****************************************************************************************/
         /*                            save/restore - style/cssVars                              */
@@ -834,8 +834,8 @@
          * restore CSS variables via localStorage
          * **/
         function restoreVariables(){
-            console.log("----------------restoreVariables");
-            const vars = localStorage.getItem("variables");
+            console.log('----------------restoreVariables');
+            const vars = localStorage.getItem('variables');
             if(vars){
                 const obj = JSON.parse(vars);
                 const keys = Object.keys(obj);
@@ -853,18 +853,18 @@
          * link input value to css-variable
          * **/
         function setupLabelOptionWindow(){
-            console.log("----------------SetupLabelOptionWindow");
+            console.log('----------------SetupLabelOptionWindow');
             resetGridDialog();
             inputs.forEach((input, index)=>{
                 input.value=getComputedStyle(document.documentElement).getPropertyValue(properties[index]);
-                input.addEventListener("change", e=> {
+                input.addEventListener('change', e=> {
                     document.documentElement.style.setProperty(properties[index], input.value);
                 })
             });
-            colCount.addEventListener("change", e => {
+            colCount.addEventListener('change', e => {
                 resetGridDialog();
             });
-            rowCount.addEventListener("change", e => {
+            rowCount.addEventListener('change', e => {
                 resetGridDialog();
             });
         }
@@ -873,25 +873,25 @@
          * index: block-index where the target element exists
          **/
         function saveCSS(index){
-            console.log("saveCSS==========================");
+            console.log('saveCSS==========================');
             index= index ||0;
             let fields;
-            const properties=["transform", "writing-mode", "font-size"];
+            const properties=['transform', 'writing-mode', 'font-size'];
 
-            const block = document.querySelectorAll(".block")[index];
+            const block = document.querySelectorAll('.block')[index];
             if(!block)return;
-            const divs= Array.from(block.querySelectorAll("div"));
+            const divs= Array.from(block.querySelectorAll('div'));
             fields = divs.map(item => {
                 return item.className
             });
             const css={};
             fields.forEach(field => {
-                const div = block.querySelector("."+ field);
-                if(div.dataset.extend==="space"){
-                    properties.push("display");
-                    properties.push("justify-content");
-                    properties.push("width");
-                    //properties.push("color");
+                const div = block.querySelector('.'+ field);
+                if(div.dataset.extend==='space'){
+                    properties.push('display');
+                    properties.push('justify-content');
+                    properties.push('width');
+                    //properties.push('color');
                 }
                 css[field]={};
                 properties.forEach(property=>{
@@ -899,7 +899,7 @@
                 });
             });
             /* class指定によるスタイルが有効なるようにstyle属性はクリア */
-            divs.forEach(item => item.style="");
+            divs.forEach(item => item.style='');
             localStorage.setItem(currentStyle, JSON.stringify(css));
             saveVariables();
         }
@@ -909,7 +909,7 @@
          * @param saved_css
          */
         function restoreCSS(cssName) {
-            console.log("------------restoreCSS");
+            console.log('------------restoreCSS');
             const saved_css = localStorage.getItem(cssName);
             if(!saved_css){
                 return;
@@ -918,23 +918,23 @@
             const css=JSON.parse(saved_css);
             const classes = Object.keys(css);
             let code = classes.reduce( (temp, className) => {
-                let str = "." + className + "{";
+                let str = '.' + className + '{';
                 const properties = Object.keys(css[className]);
                 properties.forEach(property => {
-                    if(property==="justify-content" && css[className][property]==="space-around"){
+                    if(property==='justify-content' && css[className][property]==='space-around'){
                         targetClasses.push(className);
                     }
-                    str += (property + ":" + css[className][property]+";");
+                    str += (property + ':' + css[className][property]+';');
                 });
-                return temp + str + "}"
-            },"");
-            document.getElementById("newstyle").innerText=code;
+                return temp + str + '}'
+            },'');
+            document.getElementById('newstyle').innerText=code;
             targetClasses.forEach(item => {
-                const divs = document.querySelectorAll("."+item);
+                const divs = document.querySelectorAll('.'+item);
                 divs.forEach(div=>{
-                    if(!div.querySelectorAll("span").length){
-                        div.innerHTML = "<span>"+div.innerText.split("").join("</span><span>")+"</span>";
-                        div.dataset.extend = "space";
+                    if(!div.querySelectorAll('span').length){
+                        div.innerHTML = '<span>'+div.innerText.split('').join('</span><span>')+'</span>';
+                        div.dataset.extend = 'space';
                     }
                 });
             })
@@ -953,12 +953,12 @@
          * When changing printStyle, parent(.page)-child(.block) relations must be rearranged.
          * **/
         function replaceBlock(num){
-            const cellsPerPage = num || parseInt(getComputedStyle(document.documentElement).getPropertyValue("--column-count"))*parseInt(getComputedStyle(document.documentElement).getPropertyValue("--row-count"));
-            const blocks = Array.from(document.querySelectorAll(".block"));
-            let pages = Array.from(document.querySelectorAll(".page"));
+            const cellsPerPage = num || parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count'))*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
+            const blocks = Array.from(document.querySelectorAll('.block'));
+            let pages = Array.from(document.querySelectorAll('.page'));
             /* reset page - block relations */
             pages.forEach(page => {
-                const childBlocks = page.querySelectorAll(".block");
+                const childBlocks = page.querySelectorAll('.block');
                 childBlocks.forEach(item => {
                     page.removeChild(item);
                 })
@@ -967,11 +967,11 @@
             const numOfPages = parseInt(blocks.length/cellsPerPage) + 1;
             if(numOfPages > pages.length){
                 for(let i= pages.length; i<numOfPages; i++){
-                    const div = document.createElement("div");
-                    div.classList.add("page");
+                    const div = document.createElement('div');
+                    div.classList.add('page');
                     document.body.appendChild(div);
                 }
-                pages = Array.from(document.querySelectorAll(".page"));
+                pages = Array.from(document.querySelectorAll('.page'));
             }
             /* rebuild page - block relations */
             pages.forEach((page,index) => {
@@ -983,9 +983,9 @@
                     }
                 }
                 /* IF pages > expected, mark it as empty */
-                if(!Array.from(page.querySelectorAll(".block")).length){
-                    page.classList.remove("page");
-                    page.classList.add("empty");
+                if(!Array.from(page.querySelectorAll('.block')).length){
+                    page.classList.remove('page');
+                    page.classList.add('empty');
                 }
 
             });
@@ -996,24 +996,24 @@
          * This function is called in saveCSS(), closeSetting.onclick handler
          * **/
         function saveVariables(){
-            console.log("-------------------saveVariables");
+            console.log('-------------------saveVariables');
             let filtered, css, obj;
-            const keys = ["--column-count", "--row-count", "--column-gap", "--row-gap", "--offset-y", "--offset-x", "--block-width", "--block-height"];
+            const keys = ['--column-count', '--row-count', '--column-gap', '--row-gap', '--offset-y', '--offset-x', '--block-width', '--block-height'];
             const settings = keys.reduce((prev, key) => {
                 prev[key] = getComputedStyle(document.documentElement).getPropertyValue(key);
                 return prev;
             },{});
-            localStorage.setItem("variables", JSON.stringify(settings));
+            localStorage.setItem('variables', JSON.stringify(settings));
         }
 
         function resetGridDialog(){
-            const num = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--column-count"))*parseInt(getComputedStyle(document.documentElement).getPropertyValue("--row-count"));
-            const divs = Array.from(document.querySelectorAll("#rightPane>div"));
+            const num = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--column-count'))*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-count'));
+            const divs = Array.from(document.querySelectorAll('#rightPane>div'));
             divs.forEach((div, index) => {
                 if( index < num ){
-                    div.style.display = "flex";
+                    div.style.display = 'flex';
                 }else{
-                    div.style.display="none";
+                    div.style.display='none';
                 }
             });
         }
