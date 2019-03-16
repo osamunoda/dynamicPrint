@@ -24,11 +24,42 @@ In DEMO file, you can test these two ways.
 -- How to use it --  
 At first there are no styles, so all objects resides in the left top corner. Move those as you want.
 There are four functions of the object.
-1. Resize: use bottom-right corner. Dragging the bottom-right corner,font-size is changed.
+1. Move: grasp the center of the object and drag
+2. Resize: use bottom-right corner. Dragging the bottom-right corner,font-size is changed.
 font-size is restricted not to be less than 14px.
-2. Change writing direction( vertical - horizontal ): use right-top corner
-3. Expand spacing: use left-top corner By clicking, the mode is changed. Dragging the bottom-right corner, character-spacing is changed.
-4. Move: grasp the center of the object and drag
+3. Change writing direction( vertical - horizontal ): use right-top corner
+4. Expand spacing: use left-top corner By clicking, the mode is changed. Dragging the bottom-right corner, character-spacing is changed.
+
 
 DEMO FILE: Customers.fmp12   
 In DEMO, postcard means Japanese postcard.
+
+-------------------------------------------------------------------
+
+FileMakerで開発するにあたり面倒なことの一つとして様々なプリンタやユーザーのニーズに合わせた印刷用レイアウトを開発者が複数用意しなければいけない、という問題があります。
+プリンタにはそれぞれクセがあります。あるプリンタでうまく印刷できても他のものではダメということもあります。
+印刷前にちょっとだけオブジェクト位置をずらしたい、思ったことはないでしょうか？
+ユーザーがレイアウトモードに移動できる権限を持っていればいいのですが、そうでなければ開発者であるあなたが呼ばれ文句を言われることになります。
+そういった問題を解決するためにdynamicPrintを作りました。これで全てが解決、という訳ではないですが、一定のケースには有効であると考えます。
+印刷をブラウザ（Chrome）に任せてしまえば、印刷にまつわる様々なスクリプトやレイアウトをFileMaker側で用意する必要が無くなります。唯一の仕事はデータをChromeに渡すだけです。
+ユーザーはChrome上で自由にオブジェクト位置やフォントサイズを調整できます。そしてその印刷情報はChromeのlocalStorage上に保存されます。
+ユーザーは昨日定義したレイアウトで今日も同じように印刷することができるのです。
+
+-- データの受け渡し方法 --    
+２つあります。  
+1.『Data Source Selector』を使いドラッグ&ドロップ  
+Data Source Selectorは私が作ったWebViewer部品です。これによりCSVデータを生成することができ、そのデータをChromeにドラッグ&ドロップできるようになります。  
+2.FileMaker側でデータを直接コードに埋め込み、その後、HTMLファイルとしてこれをエクスポート
+
+デモファイルを使ってこれら２つの方法をお試しいただけます。
+
+-- 使い方 --  
+データを渡した直後の状態ではオブジェクトは全て左上の位置に重なって存在します。それらをお好きな位置に動かしてください。
+各オブジェクトには次の４つの機能があります。
+1. 移動：オブジェクト中心を掴んでドラッグしてください。
+2. リサイズ：右下角を掴みドラッグするとフォントサイズが拡大縮小します。
+3. 文字方向の変更（縦書きー横書き）：右上隅の角をクリックすることにより向きが変わります。
+4. 文字間スペースの変更：左上隅をクリックするとモードが変わります。この状態で右下角をドラッグすると文字間スペースが拡大縮小します。
+
+
+デモファイルとしてCustomers.fmp12をお試しください。
