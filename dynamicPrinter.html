@@ -559,10 +559,8 @@
                 elm.dataset.extend = currentExtendMode;
                 /* Get the all objects to change the mode */
                 const targets = Array.from(document.querySelectorAll('.' + elm.className));
-                console.log('#########=====', elm.className, targets.length);
                 targets.forEach(item => {
                     item.dataset.extend = currentExtendMode;
-                    console.log(item.className);
                     /* toggle the extend mode and settings */
                     if (elm.dataset.extend === 'space') {
                         item.style = '';
@@ -721,7 +719,6 @@
          * data: an array of object [{key1: str1,key2: str2, ....}, {key1: str1,key2: str2, ....}, ....]
          * */
         function init(data) {
-            console.log('init===============')
             /* deploy data into DOMs */
             deploy(data);
             /* reset css variables via localStorage */
@@ -737,7 +734,6 @@
             }
             /* setup label option dialog window */
             setupLabelOptionWindow();
-            console.log('====================init:end')
         }
 
         /**
@@ -863,7 +859,6 @@
             let suggestionSize;
             const bounding = elm.getBoundingClientRect();
             const width = bounding.width;
-            //const height = bounding.height;
             const charWidth = width / elm.innerText.length;
             suggestionSize = charWidth * w_rate;
             return suggestionSize;
@@ -978,7 +973,6 @@
          * restore CSS variables via localStorage
          * **/
         function restoreVariables() {
-            console.log('----------------restoreVariables');
             const vars = localStorage.getItem('variables');
             if (vars) {
                 const obj = JSON.parse(vars);
@@ -998,7 +992,6 @@
          * link input value to css-variable
          * **/
         function setupLabelOptionWindow() {
-            console.log('----------------SetupLabelOptionWindow');
             resetGridDialog();
             inputs.forEach((input, index) => {
                 input.value = getComputedStyle(document.documentElement).getPropertyValue(properties[index]);
@@ -1019,7 +1012,6 @@
          * index: block-index where the target element exists
          **/
         function saveCSS(index) {
-            console.log('saveCSS==========================');
             index = index || 0;
             let fields;
             const properties = ['transform', 'writing-mode', 'font-size'];
@@ -1058,7 +1050,6 @@
          * @param saved_css
          */
         function restoreCSS(cssName) {
-            console.log('------------restoreCSS');
             const saved_css = localStorage.getItem(cssName);
             if (!saved_css) {
                 return;
@@ -1149,8 +1140,6 @@
          * This function is called in saveCSS(), closeSetting.onclick handler
          * **/
         function saveVariables() {
-            console.log('-------------------saveVariables');
-            let filtered, css, obj;
             const keys = ['--column-count', '--row-count', '--column-gap', '--row-gap', '--offset-y', '--offset-x', '--block-width', '--block-height'];
             const settings = keys.reduce((prev, key) => {
                 prev[key] = getComputedStyle(document.documentElement).getPropertyValue(key);
