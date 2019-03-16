@@ -45,7 +45,7 @@
         }
 
         #header h1 {
-            font-size: 36px;
+            font-size: 18px;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -59,7 +59,7 @@
         }
 
         #header button {
-            font-size: 18px;
+            font-size: 14px;
             padding: 5px;
             display: none;
         }
@@ -76,6 +76,10 @@
             margin: 10px;
             border-radius: 8px;
             padding: 3px;
+        }
+
+        #logo {
+            display: flex;
         }
 
         .page {
@@ -100,6 +104,7 @@
             height: 148mm;
             background-image: url('hagaki.png');
             background-size: 100% 100%;
+            border: 1px solid black;
         }
 
         .label {
@@ -143,17 +148,19 @@
         .empty {
             display: none;
         }
-        #printType{
+
+        #printType {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         #printType > ul {
             display: flex;
             color: white;
             justify-content: center;
             align-items: center;
-            margin:0;
+            margin: 0;
         }
 
         #printType > ul > li {
@@ -164,21 +171,25 @@
         #printType > ul > li:hover {
             box-shadow: 0 0 5px white;
         }
-        #btnClear{
-            padding:10px;
-            border:1px solid white;
+
+        #btnClear {
+            padding: 10px;
+            border: 1px solid white;
             display: flex;
             justify-content: center;
             align-items: center;
 
         }
-        #btnClear:hover{
+
+        #btnClear:hover {
             box-shadow: 0 0 5px white;
         }
-        #btnClear:active{
-            color:pink;
+
+        #btnClear:active {
+            color: pink;
             box-shadow: 0 0 5px pink;
         }
+
         .name::after {
             content: ''
         }
@@ -289,7 +300,11 @@
             }
 
             .label {
-            / border: 1 px solid white;
+                border: 1px solid rgba(0, 0, 0, 0);
+            }
+
+            .jpPostcard {
+                border: 1px solid rgba(0, 0, 0, 0);
             }
 
             body {
@@ -309,13 +324,15 @@
 </head>
 <body>
 <div id='header'>
-    <h1>
+    <div id='logo'>
         <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'>
             <path fill='#eee'
                   d='M19 8H5c-1.66 0-3 1.34-3 3v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.66-1.34-3-3-3zm-4 11H9c-.55 0-1-.45-1-1v-4h8v4c0 .55-.45 1-1 1zm4-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2-9H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z'/>
         </svg>
-        Dynamic Print
-    </h1>
+        <h1>
+            Dynamic Print
+        </h1>
+    </div>
     <div id='printType'>
         <ul>
             <li id='btnPostcard'>PostCard</li>
@@ -421,7 +438,7 @@
                 const dataEmbedded = `__CSV_WITH_LABELS__`;
                 if (dataEmbedded.split && dataEmbedded.split('_____')[0] && dataEmbedded.split('_____')[1]) {
                     data = csvToObjectArr(dataEmbedded.split('_____')[0], dataEmbedded.split('_____')[1]);
-                }else{
+                } else {
                     data = [];
                 }
             } else {
@@ -481,8 +498,13 @@
          * MAIN
          *
          */
+        /* add new <style> element to replace css text dynamically */
+        addNewStyleNode('newstyle');
+        if (currentStyle === 'css_postcard') {
+            document.querySelector('h1').style.display = 'none';
+        }
 
-        if (SAMPLE || EMBED==='true') {
+        if (SAMPLE || EMBED === 'true') {
             init(data);
         }
         /**
@@ -504,7 +526,7 @@
          *  labelNameList: labelNames for csv items
          * */
         document.body.addEventListener('drop', e => {
-            if (SAMPLE || EMBED==='true') return;
+            if (SAMPLE || EMBED === 'true') return;
             const data = e.dataTransfer.getData('text');
             const dataArr = data.split('_____');
             const obj = csvToObjectArr(dataArr[0], dataArr[1]);
@@ -584,7 +606,9 @@
 
                 } else {
                     const newSize = calcFontSize(elm, manager.selected.wRate);
-                    elm.style['font-size'] = newSize + 'px';
+                    if(newSize>14){
+                        elm.style['font-size'] = newSize + 'px';
+                    }
                 }
             } else if (manager.body.down === 'true') {
                 const diffX = e.pageX - manager.selected.startX;
@@ -658,10 +682,15 @@
             e.preventDefault();
             postcard_setting();
             restoreCSS(currentStyle);
+            document.querySelector('h1').style.display = 'none';
+            if (gridSetting.style.display !== 'none') {
+                gridSetting.style.display = 'none';
+            }
         });
         btnLabel.addEventListener('mouseup', e => {
             if (localStorage.getItem('printType') === 'label') {
                 gridSetting.style.display = 'flex';
+                resetGridDialog();
             } else {
                 currentStyle = 'css';
                 e.stopPropagation();
@@ -669,6 +698,7 @@
                 label_setting();
                 restoreCSS(currentStyle);
             }
+            document.querySelector('h1').style.display = 'block';
         });
         /********************************* button for clear localStorage ***************************************/
         btnClear.addEventListener('mouseup', e => {
@@ -677,6 +707,7 @@
             localStorage.clear();
             document.getElementById('newstyle').innerText = '';
         });
+
         /**
          *
          * FUNCTIONS
@@ -689,8 +720,6 @@
          * */
         function init(data) {
             console.log('init===============')
-            /* add new <style> element to replace css text dynamically */
-            addNewStyleNode('newstyle');
             /* deploy data into DOMs */
             deploy(data);
             /* reset css variables via localStorage */
@@ -724,7 +753,7 @@
         function csvToObjectArr(csv, fieldsNameList) {
             const arr = csv.split('\n');
             const fields = fieldsNameList.split(',');
-            if(arr[0].split(',').length !== fields.length){
+            if (arr[0].split(',').length !== fields.length) {
                 return [];
             }
             const obj = arr.reduce((temp, line) => {
@@ -832,7 +861,7 @@
             let suggestionSize;
             const bounding = elm.getBoundingClientRect();
             const width = bounding.width;
-            const height = bounding.height;
+            //const height = bounding.height;
             const charWidth = width / elm.innerText.length;
             suggestionSize = charWidth * w_rate;
             return suggestionSize;
@@ -1010,10 +1039,14 @@
                 css[field] = {};
                 properties.forEach(property => {
                     css[field][property] = getComputedStyle(div)[property];
+                    if(div.dataset.extend === 'size' && property==='width'){
+                        css[field][property] = 'auto';
+                    }
                 });
             });
             /* class指定によるスタイルが有効なるようにstyle属性はクリア */
             divs.forEach(item => item.style = '');
+
             localStorage.setItem(currentStyle, JSON.stringify(css));
             saveVariables();
         }
@@ -1049,6 +1082,8 @@
                     if (!div.querySelectorAll('span').length) {
                         div.innerHTML = '<span>' + div.innerText.split('').join('</span><span>') + '</span>';
                         div.dataset.extend = 'space';
+                    }else{
+
                     }
                 });
             })
