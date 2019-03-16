@@ -29,3 +29,6 @@ font-size is restricted not to be less than 14px.
 2. Change writing direction( vertical - horizontal ): use right-top corner
 3. Expand spacing: use left-top corner By clicking, the mode is changed. Dragging the bottom-right corner, character-spacing is changed.
 4. Move: grasp the center of the object and drag
+
+DEMO FILE: Customers.fmp12   
+In DEMO, postcard means Japanese postcard.
