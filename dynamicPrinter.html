@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='ja'>
+<html lang='en'>
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport'
@@ -93,6 +93,8 @@
             display: grid;
             grid-template-columns: repeat(var(--column-count), calc(var(--block-width) * 1mm));
             grid-template-rows: repeat(var(--row-count), calc(var(--block-height) * 1mm));
+            grid-column-gap: calc(var(--column-gap) * 1mm);
+            grid-row-gap: calc(var(--row-gap) * 1mm);
         }
 
         .block {
@@ -351,12 +353,12 @@
         </div>
         <div id='settingPanel'>
             <div id='leftPane'>
-                <div>column<input value=2 id='colCount'></div>
-                <div>row<input value=5 id='rowCount'></div>
-                <div>padding-top<input value=20 id='offsetY'></div>
-                <div>padding-side<input value=10 id='offsetX'></div>
-                <div>column-gap<input value=5 id='colGap'></div>
-                <div>row-gap<input value=2 id='rowGap'></div>
+                <div>column<input value="2" id='colCount'></div>
+                <div>row<input value="5" id='rowCount'></div>
+                <div>padding-top<input value="20" id='offsetY'></div>
+                <div>padding-side<input value="10" id='offsetX'></div>
+                <div>column-gap<input value="5" id='colGap'></div>
+                <div>row-gap<input value="2" id='rowGap'></div>
                 <br>
                 <div>unit: mm</div>
             </div>

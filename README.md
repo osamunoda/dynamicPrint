@@ -30,8 +30,12 @@ font-size is restricted not to be less than 14px.
 3. Change writing direction( vertical - horizontal ): use right-top corner
 4. Expand spacing: use left-top corner By clicking, the mode is changed. Dragging the bottom-right corner, character-spacing is changed.
 
+-- Caveats --
+1. Chrome Settings:  "Block third-party cookies" must be off/disabled ( because dynamicPrint usess localStorage )
+2. When you use "Data Source Selector( WebViewer widget )" in your own file, make sure that your privilege settings enables fmurlscript.  
 
 DEMO FILE: Customers.fmp12   
+How-to-use movies: howto_1.mp4, howto_2.mp4  
 In DEMO, postcard means Japanese postcard.
 
 -------------------------------------------------------------------
@@ -61,5 +65,9 @@ Data Source Selectorは私が作ったWebViewer部品です。これによりCSV
 3. 文字方向の変更（縦書きー横書き）：右上隅の角をクリックすることにより向きが変わります。
 4. 文字間スペースの変更：左上隅をクリックするとモードが変わります。この状態で右下角をドラッグすると文字間スペースが拡大縮小します。
 
+-- 注意点 --
+1. ブラウザcookie設定："Block Third Party" の項目をdisbled/offとする必要がある（dynamicPrintがlocalStorageを使用する関係上）
+2. Data Source Selector(WebViewer部品)をあなたの独自のファイルで新規にお使いになる際にはsecurityの権限設定においてfmurlscriptが有効になっていることを確認してください。   
 
-デモファイルとしてCustomers.fmp12をお試しください。
+デモファイルとしてCustomers.fmp12をお試しください。  
+使い方movie: howto_1.mp4, howto_2.mp4
