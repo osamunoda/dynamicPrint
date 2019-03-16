@@ -23,7 +23,7 @@ In DEMO file, you can test these two ways.
 
 -- How to use it --  
 At first there are no styles, so all objects resides in the left top corner. Move those as you want.
-There are three functions of the object.
+There are four functions of the object.
 1. Resize: use bottom-right corner. Dragging the bottom-right corner,font-size is changed.
 font-size is restricted not to be less than 14px.
 2. Change writing direction( vertical - horizontal ): use right-top corner
