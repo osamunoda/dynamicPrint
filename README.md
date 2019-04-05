@@ -1,7 +1,8 @@
 # dynamicPrint
 Label Print App for FileMaker
 
-(requirement) Mac, Chrome only
+(requirement) Mac, Chrome only  
+updated: ver1.0~ Mac, Windows10, chrome only 
 
 One of the annoying thing in FileMaker development is to prepare various layouts according to various printers or various customer's needs.
 Each printer has its own characteristics. On one printer you can print well, but not on the others. Have you ever wanted to change objects position slightly before print?
